@@ -20,13 +20,24 @@ namespace TechnicalTest.Api.Controllers
             _documentExecuter = documentExecuter;
             _schema = schema;
         }
-
+        /*{ 
+         * example of query to post
+ "query":
+  "query{
+     favs(userId:3){
+       id 
+       title
+     }
+   }"
+}
+*/
         [HttpPost]
         public async Task<ActionResult> Get([FromBody]GraphQLQuery query)
         {
             if (query == null) { throw new ArgumentNullException(nameof(query)); }
 
-            var executionOptions = new ExecutionOptions { Schema = _schema, Query = query.Query };
+            var executionOptions = new ExecutionOptions {
+                Schema = _schema, Query = query.Query };
 
             try
             {

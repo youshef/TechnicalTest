@@ -10,6 +10,8 @@ namespace TechnicalTest.Api.GraphQl
             : base(resolveType)
         {
             Query = (FavoritesQuery)resolveType(typeof(FavoritesQuery));
+            Mutation = (FavoritesMutation)resolveType(typeof(FavoritesMutation));
+
         }
     }
 }

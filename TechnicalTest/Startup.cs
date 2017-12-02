@@ -34,10 +34,15 @@ namespace TechnicalTest
             services.AddTransient<IFavoritesService, FavoritesService>();
             services.AddScoped<IDocumentExecuter, DocumentExecuter>();
             services.AddScoped<FavoritesQuery>();
+            services.AddScoped<FavoritesMutation>();
             services.AddTransient<AdType>();
             services.AddTransient<FavoriteType>();
+            services.AddTransient<FavoriteInputType>();
             var sp = services.BuildServiceProvider();
-            services.AddScoped<ISchema>(_ => new FavoritesSchema(type => (GraphType)sp.GetService(type)) { Query = sp.GetService<FavoritesQuery>() });
+            services.AddScoped<ISchema>(_ => new FavoritesSchema(type => (GraphType)sp.GetService(type)) {
+                Query = sp.GetService<FavoritesQuery>(),
+                Mutation = sp.GetService<FavoritesMutation>()
+            });
         }
     
 
