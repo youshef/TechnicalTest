@@ -6,6 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="publish\**" />
+    <Content Remove="publish\**" />
+    <EmbeddedResource Remove="publish\**" />
+    <None Remove="publish\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="GraphQlMiddleware.cs" />
+    <Compile Remove="GraphQl\Class.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -13,6 +25,7 @@
     <PackageReference Include="GraphQL" Version="2.0.0-alpha-817" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

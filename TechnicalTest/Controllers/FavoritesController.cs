@@ -21,11 +21,11 @@ namespace TechnicalTest.Controllers
             _favoritesService = favoritesService;
             _logger = logger;
             dbContext.SeetTestData();
-            //new AdsDbContext().SeetTestData();
+            
 
         }
         [HttpGet("{userId}/{type}")]
-        public IEnumerable<Ad> Get(Guid userId,string type)
+        public IEnumerable<Ad> Get(int userId,string type)
         {
             if(string.IsNullOrWhiteSpace(type))
             return _favoritesService.RetrieveFavoritedAds(userId, "All");
@@ -33,12 +33,12 @@ namespace TechnicalTest.Controllers
         }
 
         [HttpPut,HttpPost]
-        public bool AutomaticAdSave([FromBody]Guid adId, [FromBody]Guid userId)
+        public bool AutomaticAdSave([FromBody]int adId, [FromBody]int userId)
         {
             return _favoritesService.FavoriteAnAd(adId, userId, SaveTypes.Automatic);
         }
         [HttpPut, HttpPost]
-        public bool ManualAdSave([FromBody]Guid adId, [FromBody]Guid userId)
+        public bool ManualAdSave([FromBody]int adId, [FromBody]int userId)
         {
             return _favoritesService.FavoriteAnAd(adId, userId, SaveTypes.Manual);
         }
@@ -46,7 +46,7 @@ namespace TechnicalTest.Controllers
         
         // DELETE api/adId/userId
         [HttpDelete("{adId}/{userId}")]
-        public bool Delete(Guid adId,Guid userId)
+        public bool Delete(int adId,int userId)
         {
             return _favoritesService.RemoveAdFromFavorites(adId, userId);
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GraphQL;
+using GraphQL.Types;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,13 +30,19 @@ namespace TechnicalTest
             services.AddMvc();
             services.AddDbContext<AdsDbContext>(options=>options.UseSqlite("Data Source=TechnicalTestDb.db"));
 
-
+            
             services.AddTransient<IFavoritesService, FavoritesService>();
-
+            services.AddScoped<IDocumentExecuter, DocumentExecuter>();
+            services.AddScoped<FavoritesQuery>();
+            services.AddTransient<AdType>();
+            services.AddTransient<FavoriteType>();
+            var sp = services.BuildServiceProvider();
+            services.AddScoped<ISchema>(_ => new FavoritesSchema(type => (GraphType)sp.GetService(type)) { Query = sp.GetService<FavoritesQuery>() });
         }
+    
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,IFavoritesService favoritesService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,IFavoritesService favoritesService, AdsDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -44,9 +52,7 @@ namespace TechnicalTest
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseMvc();
-            app.UseGraphQL(favoritesService);
-
-
+            dbContext.SeetTestData();
         }
     }
 }

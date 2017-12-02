@@ -9,9 +9,9 @@ namespace TechnicalTest.Data.Services
 
     public interface IFavoritesService
     {
-        bool FavoriteAnAd(Guid adId, Guid userId, string saveType);
-        IEnumerable<Ad> RetrieveFavoritedAds(Guid userId, string type = "All");
+        bool FavoriteAnAd(int adId, int userId, string saveType);
+        IEnumerable<Ad> RetrieveFavoritedAds(int userId, string type = "All");
 
-        bool RemoveAdFromFavorites(Guid adId, Guid userId);
+        bool RemoveAdFromFavorites(int adId, int userId);
     }
 }

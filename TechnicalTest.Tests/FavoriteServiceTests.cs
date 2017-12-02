@@ -29,7 +29,7 @@ namespace TechnicalTest.Tests
             favoritesService = new FavoritesService(ctx, servicelogger.Object);
         }
         [Fact]
-        public void DbContextShouldContainThreeUsers()
+        public void DbContextShouldContainthreeUsers()
         {
             var users = ctx.Users.ToList();
             Assert.NotEmpty(users);
@@ -77,7 +77,7 @@ namespace TechnicalTest.Tests
         [Fact]
         void Should_Not_Favorite_An_Ad_Because_inexisting_user_id()
         {
-            var userId = Guid.NewGuid();
+            var userId = 55;
             var adId = ctx.Ads.First(x => x.Title == "Ad1").Id;
             var result = favoritesService.FavoriteAnAd(adId, userId, "Unknown");
             Assert.False(result);
@@ -88,7 +88,7 @@ namespace TechnicalTest.Tests
         void Should_Not_Favorite_An_Ad_Because_inexisting_ad_id()
         {
             var userId = ctx.Users.First(x => x.Username == "User1").Id;
-            var adId = Guid.NewGuid();
+            var adId = 55;
             var result = favoritesService.FavoriteAnAd(adId, userId, "Unknown");
             Assert.False(result);
             Assert.Equal(0, ctx.Favorites.Where(x => x.AdId == adId && x.UserId == userId).Count());
@@ -97,8 +97,8 @@ namespace TechnicalTest.Tests
         [Fact]
         void Should_Not_Favorite_An_Ad_Because_both_ad_and_user_dont_exist()
         {
-            var userId = Guid.NewGuid();
-            var adId = Guid.NewGuid();
+            var userId =55;
+            var adId = 55;
             var result = favoritesService.FavoriteAnAd(adId, userId, "Unknown");
             Assert.False(result);
             Assert.Equal(0, ctx.Favorites.Where(x => x.AdId == adId && x.UserId == userId).Count());
@@ -264,7 +264,7 @@ namespace TechnicalTest.Tests
             var result6 = favoritesService.FavoriteAnAd(adId2, userId2, SaveTypes.Automatic);
             Assert.True(result6);
 
-            var user1Ads = favoritesService.RetrieveFavoritedAds(Guid.NewGuid());
+            var user1Ads = favoritesService.RetrieveFavoritedAds(55);
             Assert.Empty(user1Ads);
 
         }
@@ -330,7 +330,7 @@ namespace TechnicalTest.Tests
             var user1Ads = favoritesService.RetrieveFavoritedAds(userId1);
             
             Assert.Equal(4, user1Ads.Count());
-            var removeResult = favoritesService.RemoveAdFromFavorites(adId1, Guid.NewGuid());
+            var removeResult = favoritesService.RemoveAdFromFavorites(adId1, 55);
             Assert.False(removeResult);
 
             var user1AdsAfterDelete = favoritesService.RetrieveFavoritedAds(userId1);
@@ -364,7 +364,7 @@ namespace TechnicalTest.Tests
             var user1Ads = favoritesService.RetrieveFavoritedAds(userId1);
 
             Assert.Equal(4, user1Ads.Count());
-            var removeResult = favoritesService.RemoveAdFromFavorites(Guid.NewGuid(), userId1);
+            var removeResult = favoritesService.RemoveAdFromFavorites(55, userId1);
             Assert.False(removeResult);
 
             var user1AdsAfterDelete = favoritesService.RetrieveFavoritedAds(userId1);

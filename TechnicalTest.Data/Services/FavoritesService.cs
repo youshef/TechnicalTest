@@ -28,7 +28,7 @@ public class FavoritesService : IFavoritesService
         /// <param name="userId">Id of the user</param>
         /// <param name="saveType">Type of the favorite ("Automatic" or "Manual")</param>
         /// <returns>true if the Ad is saved successfully, false if an exception occured</returns>
-        public bool FavoriteAnAd(Guid adId,Guid userId,string saveType)
+        public bool FavoriteAnAd(int adId,int userId,string saveType)
         {
             try
             {
@@ -59,7 +59,7 @@ public class FavoritesService : IFavoritesService
         /// <param name="userId">User Id</param>
         /// <param name="type">Type of favorited ads : Manual,Automatic or All (defaulted to all)</param>
         /// <returns>the list of the saved Ads </returns>
-        public IEnumerable<Ad> RetrieveFavoritedAds(Guid userId,string type="All")
+        public IEnumerable<Ad> RetrieveFavoritedAds(int userId,string type="All")
         {
 
             try
@@ -94,7 +94,7 @@ public class FavoritesService : IFavoritesService
         /// </summary>
         /// <param name="favoriteId">Id of the ad to remove from favorites</param>
         /// <returns>true if the favorite is removed successfully, false if an exception occured</returns>
-        public bool RemoveAdFromFavorites(Guid adId,Guid userId)
+        public bool RemoveAdFromFavorites(int adId,int userId)
         {
 
             try

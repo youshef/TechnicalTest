@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace TechnicalTest.Data.Models
@@ -7,7 +9,9 @@ namespace TechnicalTest.Data.Models
     public class Ad : IEntity
     {
 
-        public Guid Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
         public string Title { get; set; }
         public Ad()
         {

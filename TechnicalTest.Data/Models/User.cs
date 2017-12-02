@@ -1,11 +1,15 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TechnicalTest.Data.Models
 {
     public class User : IEntity
     {
 
-        public Guid Id { get; set; } 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; } 
         public string Username { get; set; }
         public User()
         {

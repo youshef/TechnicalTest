@@ -19,6 +19,7 @@ namespace TechnicalTest.Data
         public AdsDbContext(DbContextOptions options, ILogger<AdsDbContext> logger)
             : base(options)
         {
+            
             _logger = logger;
             Database.EnsureCreated();
             Database.Migrate();
@@ -33,9 +34,11 @@ namespace TechnicalTest.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(c => c.Id);
-            modelBuilder.Entity<Ad>().HasKey(c => c.Id);
-            modelBuilder.Entity<Favorite>().HasKey(c => c.Id);
+           
+
+            //modelBuilder.Entity<User>().HasKey(c => c.Id);
+            //modelBuilder.Entity<Ad>().HasKey(c => c.Id);
+            //modelBuilder.Entity<Favorite>().HasKey(c => c.Id);
             modelBuilder.Entity<Favorite>().HasOne(x=>x.Ad).WithMany().HasForeignKey(x=>x.AdId).OnDelete(DeleteBehavior.Cascade);
         }
 
